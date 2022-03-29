@@ -1,7 +1,22 @@
-import React from "react"
+import React from 'react';
 
-function App(){
-    return <h1>Fuerza Test</h1>
-}
+import { BrowserRouter as Router } from 'react-router-dom';
 
-export default App
+import Routes from './routes';
+
+import AppProvider from './hooks';
+
+import GlobalStyle from './styles/global';
+
+// toast.configure();
+const App: React.FC = () => (
+  <Router>
+    <AppProvider>
+      <Routes />
+    </AppProvider>
+
+    <GlobalStyle />
+  </Router>
+);
+
+export default App;
