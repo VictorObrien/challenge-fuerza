@@ -1,28 +1,22 @@
 // eslint-disable-next-line no-use-before-define
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import http from '../services/api';
+import { User } from '../interfaces/user.interface';
 
 import Loading from '../components/loading';
 
-interface UserData {
-  email: string;
-  id: string;
-  name: string;
-}
-
 interface AuthState {
   token: string;
-  user: UserData;
-  token_date: number;
+  user: User;
 }
 
 interface SignInCredentials {
-  email: string;
+  username: string;
   password: string;
 }
 
 interface AuthContextData {
-  user: UserData;
+  user: User;
   token: string;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
@@ -47,18 +41,17 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async ({ username, password }) => {
     setLoading(true);
     const response = await http.post('auth/login', {
-      email,
+      username,
       password,
     });
-    const { token, user, token_date } = response.data;
+    const { token, user } = response.data;
 
     localStorage.setItem('Nocturnal:token', token);
     localStorage.setItem('Nocturnal:user', JSON.stringify(user));
-    localStorage.setItem('Nocturnal:session-date', JSON.stringify(token_date));
-    setData({ token, user, token_date });
+    setData({ token, user });
     setLoading(false);
   }, []);
 

@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-use-before-define
 import React, { useCallback, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { FiUser, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -8,49 +9,55 @@ import * as Yup from 'yup';
 import { useAuth } from '../../hooks/Auth';
 import { useToast } from '../../hooks/Toast';
 
+import { createAccount } from '../../services/user';
+
 import logo from '../../assets/logo.svg';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+import getValidationErrors from '../../utils/getValidationErrors';
 import {
   Container,
   Content,
   AnimationContainer,
   TextContainer,
 } from './styles';
-import getValidationErrors from '../../utils/getValidationErrors';
-import { Link } from 'react-router-dom';
 
-interface SignInFormData {
+interface SignUpFormData {
   username: string;
   password: string;
+  email: string;
 }
 
-const SingnIn: React.FC = () => {
+const SingnUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const { signIn, setLoading } = useAuth();
+  const { setLoading } = useAuth();
 
   const { addToast } = useToast();
 
   const handleSubmit = useCallback(
-    async (data: SignInFormData) => {
+    async (data: SignUpFormData) => {
       try {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
           username: Yup.string().required('Username is required'),
           password: Yup.string().min(6, 'At least 6 digits'),
+          email: Yup.string()
+            .required('Email is required')
+            .email('Enter a valid email address'),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await signIn({
+        await createAccount({
           username: data.username,
           password: data.password,
+          email: data.email,
         });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -62,13 +69,12 @@ const SingnIn: React.FC = () => {
           addToast({
             type: 'error',
             title: 'Error',
-            description:
-              'An error occurred while logging in. Invalid username or password',
+            description: 'An error occurred while creating the account',
           });
         }
       }
     },
-    [signIn, addToast, setLoading]
+    [addToast, setLoading]
   );
 
   return (
@@ -78,17 +84,22 @@ const SingnIn: React.FC = () => {
           <img src={logo} alt="nocturnal" />
           <Form ref={formRef} onSubmit={handleSubmit}>
             <TextContainer>
-              <h1>Sign in</h1>
-              <Link to="/signup">Sign Up</Link>
+              <h1>Sign Up</h1>
+              <Link to="/">Already have an account</Link>
             </TextContainer>
-            <Input name="username" icon={FiUser} placeholder="Your username" />
+            <Input
+              name="username"
+              icon={FiUser}
+              placeholder="Define a username"
+            />
             <Input
               name="password"
               icon={FiLock}
               type="password"
-              placeholder="Your password"
+              placeholder="Set your password"
             />
-            <Button type="submit">Log in</Button>
+            <Input name="email" icon={FiUser} placeholder="Email (optional)" />
+            <Button type="submit">Create account</Button>
           </Form>
         </AnimationContainer>
       </Content>
@@ -96,4 +107,4 @@ const SingnIn: React.FC = () => {
   );
 };
 
-export default SingnIn;
+export default SingnUp;
