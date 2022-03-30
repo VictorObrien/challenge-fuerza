@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 // eslint-disable-next-line no-use-before-define
 import React, { useEffect } from 'react';
 import {
@@ -5,33 +6,34 @@ import {
   RouteProps as ReactDOMRouteProps,
   Redirect,
 } from 'react-router-dom';
-import { isExpired } from 'react-jwt';
 
 import { useAuth } from '../hooks/Auth';
 import { useToast } from '../hooks/Toast';
+import { getStorageToken } from '../storage';
 
 interface RouteProps extends ReactDOMRouteProps {
+  isPrivate?: boolean;
   component: React.ComponentType;
 }
 
-const PublicRoute: React.FC<RouteProps> = ({
+const Route: React.FC<RouteProps> = ({
+  isPrivate = false,
   component: Component,
   ...rest
 }) => {
-  const { signOut, reload, token } = useAuth();
+  const { user, signOut, reload } = useAuth();
   const { addToast } = useToast();
 
+  const token = getStorageToken();
+
   useEffect(() => {
-    if (token) {
-      const isMyTokenExpired = isExpired(token);
-      if (isMyTokenExpired) {
-        signOut();
-        addToast({
-          type: 'error',
-          title: 'Sessão expirada',
-          description: 'Sua sessão expirou. Realize o login novamente!',
-        });
-      }
+    if (!token) {
+      signOut();
+      addToast({
+        type: 'error',
+        title: 'Sessão expirada',
+        description: 'Sua sessão expirou. Realize o login novamente!',
+      });
     }
   }, [addToast, signOut, reload, token]);
 
@@ -39,12 +41,12 @@ const PublicRoute: React.FC<RouteProps> = ({
     <ReactDOMRoute
       {...rest}
       render={({ location }) => {
-        return !token ? (
+        return isPrivate === !!user ? (
           <Component />
         ) : (
           <Redirect
             to={{
-              pathname: '/home',
+              pathname: isPrivate ? '/' : '/journals',
               state: { from: location },
             }}
           />
@@ -54,4 +56,4 @@ const PublicRoute: React.FC<RouteProps> = ({
   );
 };
 
-export default PublicRoute;
+export default Route;

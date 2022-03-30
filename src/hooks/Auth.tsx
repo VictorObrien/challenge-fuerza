@@ -18,6 +18,7 @@ interface SignInCredentials {
 interface AuthContextData {
   user: User;
   token: string;
+  isAuthenticaded: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   setLoading(arg0: boolean): void;
@@ -30,6 +31,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 const AuthProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [reload, setReload] = useState(false);
+  const [isAuthenticaded, setIsAuthenticated] = useState(false);
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('Nocturnal:token');
     const user = localStorage.getItem('Nocturnal:user');
@@ -43,24 +45,26 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signIn = useCallback(async ({ username, password }) => {
     setLoading(true);
-    const response = await http.post('auth/login', {
+    const response: AuthState = await http.post('/auth/login', {
       username,
       password,
     });
-    const { token, user } = response.data;
+    const { token, user } = response;
 
-    localStorage.setItem('Nocturnal:token', token);
-    localStorage.setItem('Nocturnal:user', JSON.stringify(user));
+    if (token) {
+      setIsAuthenticated(true);
+    }
+
+    localStorage.setItem('@Nocturnal:token', token);
+    localStorage.setItem('@Nocturnal:user', JSON.stringify(user));
     setData({ token, user });
     setLoading(false);
   }, []);
 
   const signOut = useCallback(() => {
     setLoading(true);
-    localStorage.removeItem('Nocturnal:token');
-    localStorage.removeItem('Nocturnal:user');
-    // localStorage.clear();
-
+    localStorage.removeItem('@Nocturnal:token');
+    localStorage.removeItem('@Nocturnal:user');
     setData({} as AuthState);
     setLoading(false);
   }, []);
@@ -74,6 +78,7 @@ const AuthProvider: React.FC = ({ children }) => {
       value={{
         user: data.user,
         token: data.token,
+        isAuthenticaded,
         signIn,
         signOut,
         setLoading,

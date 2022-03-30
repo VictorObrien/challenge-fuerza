@@ -2,16 +2,18 @@
 import React from 'react';
 
 import { Switch } from 'react-router-dom';
-import PublicRoute from './PublicRoute';
+import Route from './Route';
 
 import SignIn from '../pages/SignIn';
 import SingnUp from '../pages/SignUp';
+import Journals from '../pages/Journals';
 
 const Routes: React.FC = () => {
   return (
     <Switch>
-      <PublicRoute path="/" exact component={SignIn} />
-      <PublicRoute path="/signup" exact component={SingnUp} />
+      <Route path="/" exact component={SignIn} />
+      <Route path="/signup" exact component={SingnUp} />
+      <Route path="/journals" exact component={Journals} isPrivate />
     </Switch>
   );
 };

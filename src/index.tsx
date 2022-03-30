@@ -7,9 +7,11 @@ if (process.env.NODE_ENV === 'development') {
   setupServer();
 }
 
+console.log(process.env.NODE_ENV);
+
 ReactDOM.render(
   <React.StrictMode>
-      <App />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
