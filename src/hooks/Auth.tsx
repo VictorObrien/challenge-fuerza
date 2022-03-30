@@ -21,6 +21,7 @@ interface AuthContextData {
   isAuthenticaded: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  updateUserJournals(user: User): void;
   setLoading(arg0: boolean): void;
   reloading(): void;
   reload: boolean;
@@ -33,15 +34,27 @@ const AuthProvider: React.FC = ({ children }) => {
   const [reload, setReload] = useState(false);
   const [isAuthenticaded, setIsAuthenticated] = useState(false);
   const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('Nocturnal:token');
-    const user = localStorage.getItem('Nocturnal:user');
-    const token_date = localStorage.getItem('Nocturnal:session-date');
-    if (token && user && token_date) {
-      return { token, user: JSON.parse(user), token_date: Number(token_date) };
+    const token = localStorage.getItem('@Nocturnal:token');
+    const user = localStorage.getItem('@Nocturnal:user');
+    if (token && user) {
+      return { token, user: JSON.parse(user) };
     }
 
     return {} as AuthState;
   });
+
+  const updateUserJournals = useCallback(
+    (user: User) => {
+      if (user) {
+        setData({
+          ...data,
+          user,
+        });
+        localStorage.setItem('@Nocturnal:user', JSON.stringify(user));
+      }
+    },
+    [data]
+  );
 
   const signIn = useCallback(async ({ username, password }) => {
     setLoading(true);
@@ -81,6 +94,7 @@ const AuthProvider: React.FC = ({ children }) => {
         isAuthenticaded,
         signIn,
         signOut,
+        updateUserJournals,
         setLoading,
         reloading,
         reload,

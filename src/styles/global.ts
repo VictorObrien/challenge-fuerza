@@ -4,6 +4,7 @@ import homeBackground from '../assets/background.svg';
 export default createGlobalStyle`
   :root {
   --primary-color: #834825;
+  --background-color: #F8E5D6;
   }
 
   * {

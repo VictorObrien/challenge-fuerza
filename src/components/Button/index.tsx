@@ -3,10 +3,12 @@ import React, { ButtonHTMLAttributes } from 'react';
 
 import { Container } from './styles';
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  isOutlined: boolean;
+}
 
-const Button: React.FC<ButtonProps> = ({ children, ...rest }) => (
-  <Container type="button" {...rest}>
+const Button: React.FC<ButtonProps> = ({ children, isOutlined, ...rest }) => (
+  <Container isOutlined={isOutlined} type="button" {...rest}>
     {children}
   </Container>
 );

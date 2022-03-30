@@ -88,7 +88,9 @@ const SingnIn: React.FC = () => {
               type="password"
               placeholder="Your password"
             />
-            <Button type="submit">Log in</Button>
+            <Button isOutlined={false} type="submit">
+              Log in
+            </Button>
           </Form>
         </AnimationContainer>
       </Content>

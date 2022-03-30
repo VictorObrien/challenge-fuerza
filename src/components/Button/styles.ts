@@ -1,7 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 
-export const Container = styled.button`
+interface ContainerProps {
+  isOutlined: boolean;
+}
+
+export const Container = styled.button<ContainerProps>`
   background: var(--primary-color);
   height: 40px;
   border-radius: 40px;
@@ -16,4 +20,18 @@ export const Container = styled.button`
   &:hover {
     background: ${shade(0.2, '#834825')};
   }
+
+  ${({ isOutlined }) =>
+    isOutlined &&
+    css`
+      width: max-content;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      background-color: var(--background-color);
+      margin: 0 auto;
+
+      &:hover {
+        color: var(--background-color);
+      }
+    `}
 `;
