@@ -21,46 +21,46 @@ const toastTypeVariation = {
 };
 
 export const Container = styled.div<ContainerProps>`
-  width: 360px;
+  max-width: 22.5rem;
   position: relative;
-  padding: 16px 30px 16px 16px;
+  padding: 1rem 1.875rem 1rem 1rem;
   border-radius: 10px;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
 
   display: flex;
 
   & + div {
-    margin-top: 8px;
+    margin-top: 0.5rem;
   }
 
-  ${props => toastTypeVariation[props.type || 'info']}
+  ${(props) => toastTypeVariation[props.type || 'info']}
 
   > svg {
-    margin: 4px 12px 0 0;
+    margin: 0.25rem 0.75rem 0 0;
   }
 
   div {
     flex: 1;
 
     p {
-      margin-top: 4px;
-      font-size: 14px;
+      margin-top: 0.25rem;
+      font-size: 0.875rem;
       opacity: 0.8;
-      line-height: 20px;
+      line-height: 1.25rem;
     }
   }
 
   button {
     position: absolute;
-    right: 16px;
-    top: 19px;
+    right: 1rem;
+    top: 1.25rem;
     opacity: 0.6;
     border: 0;
     background: transparent;
     color: inherit;
   }
 
-  ${props =>
+  ${(props) =>
     !props.hasDescription &&
     css`
       align-items: center;

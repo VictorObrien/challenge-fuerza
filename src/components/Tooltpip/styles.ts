@@ -4,11 +4,11 @@ export const Container = styled.div`
   position: relative;
 
   span {
-    width: 160px;
+    width: 10rem;
     background: var(--primary-color);
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 14px;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
     font-weight: 500;
     opacity: 0;
     transition: opacity 0.4s;

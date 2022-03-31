@@ -37,7 +37,7 @@ export default createGlobalStyle`
   input,
   button {
     font-family: Montserrat, Arial, Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   input, select :focus-visible {

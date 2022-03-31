@@ -28,7 +28,7 @@ export const Container = styled.div`
     overflow: hidden;
 
     > div:first-child {
-      width: 40px;
+      width: 2.5rem;
       border-radius: 2px 0px 0px 2px;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
@@ -47,7 +47,7 @@ export const Container = styled.div`
   }
 
   form {
-    margin: 78px 0;
+    margin: 4.875rem 0;
     width: 100%;
     max-width: 720px;
     text-align: center;

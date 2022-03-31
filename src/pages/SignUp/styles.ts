@@ -56,7 +56,7 @@ export const TextContainer = styled.div`
   margin-bottom: 1.5rem;
 
   a {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--primary-color);
   }
