@@ -9,8 +9,8 @@ export const Container = styled.div`
   max-width: 1080px;
 
   a {
-    margin-top: 80px;
-    font-size: 14px;
+    margin-top: 5rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: var(--primary-color);
   }

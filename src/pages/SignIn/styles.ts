@@ -1,8 +1,10 @@
 import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: end;
 `;
@@ -37,12 +39,12 @@ export const AnimationContainer = styled.div`
   animation: ${appearFromLeft} 1s;
 
   form {
-    margin: 78px 0;
-    width: 320px;
+    margin: 4.875rem 0;
+    width: 20rem;
     text-align: center;
 
     div + div {
-      margin-top: 24px;
+      margin-top: 1.5rem;
     }
   }
 `;
@@ -51,7 +53,7 @@ export const TextContainer = styled.div`
   display: flex;
   align-items: end;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
 
   a {
     font-size: 12px;

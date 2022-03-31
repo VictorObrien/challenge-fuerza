@@ -7,6 +7,19 @@ export default createGlobalStyle`
   --background-color: #F8E5D6;
   }
 
+  #root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    width: 100vw;
+    min-height: 100vh;
+
+    padding: 29px
+  }
+
   * {
     margin: 0;
     padding: 0;

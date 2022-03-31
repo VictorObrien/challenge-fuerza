@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 90vh;
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -48,12 +48,13 @@ export const Container = styled.div`
 
   form {
     margin: 78px 0;
-    width: 720px;
+    width: 100%;
+    max-width: 720px;
     text-align: center;
   }
 `;
 
 export const Content = styled.div`
-  width: 240px;
-  height: 324px;
+  width: 15rem;
+  height: 20.25rem;
 `;

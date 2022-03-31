@@ -7,14 +7,14 @@ interface ContainerProps {
 
 export const Container = styled.button<ContainerProps>`
   background: var(--primary-color);
-  height: 40px;
+  height: 2.5rem;
   border-radius: 40px;
   border: 0;
-  padding: 0 16px;
-  width: 161px;
+  padding: 0 1rem;
+  max-width: 10rem;
   color: #fff;
   font-weight: 600;
-  margin-top: 40px;
+  margin-top: 2.5rem;
   transition: background-color 0.2s;
 
   &:hover {
