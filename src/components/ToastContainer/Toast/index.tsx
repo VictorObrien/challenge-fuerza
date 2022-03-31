@@ -1,7 +1,12 @@
 // eslint-disable-next-line no-use-before-define
 import React, { useEffect } from 'react';
 
-import { FiAlertCircle, FiCheckCircle, FiInfo, FiXCircle } from 'react-icons/fi';
+import {
+  FiAlertCircle,
+  FiCheckCircle,
+  FiInfo,
+  FiXCircle,
+} from 'react-icons/fi';
 
 import { ToastMessage, useToast } from '../../../hooks/Toast';
 

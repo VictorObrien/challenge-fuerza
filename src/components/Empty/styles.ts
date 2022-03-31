@@ -6,10 +6,16 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  max-width: 1080px;
+  margin: auto;
+
+  gap: 6rem;
+
+  img {
+    width: 100%;
+    max-width: 400px;
+  }
 
   a {
-    margin-top: 5rem;
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--primary-color);

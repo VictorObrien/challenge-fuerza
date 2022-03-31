@@ -54,6 +54,10 @@ export default createGlobalStyle`
     font-family: Montserrat;
     font-weight: 500;
   }
+
+  a {
+    text-decoration: none;
+  }
   
   button {
     cursor: pointer;

@@ -42,7 +42,7 @@ const CreateJournal: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          title: Yup.string().required('Username is required'),
+          title: Yup.string().required('Title is required'),
         });
 
         await schema.validate(data, {
@@ -57,7 +57,6 @@ const CreateJournal: React.FC = () => {
 
         if (response) {
           updateUserJournals(response.user);
-          setLoading(false);
           addToast({
             type: 'success',
             title: 'Journal created',
@@ -75,7 +74,7 @@ const CreateJournal: React.FC = () => {
             type: 'error',
             title: 'Error',
             description:
-              'An error occurred while logging in. Invalid username or password',
+              'An error occurred while creating the new journal. Please try again',
           });
         }
       }
