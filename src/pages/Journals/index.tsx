@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
@@ -23,31 +23,30 @@ const Journals: React.FC = () => {
   const { addToast } = useToast();
   const [journals, setJournals] = useState<Journal[]>();
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        setLoading(true);
-        const response: GetJournalProps = await http.get(
-          `/journals/${user.id}`
-        );
+  const getJournals = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response: GetJournalProps = await http.get(`/journals/${user.id}`);
 
-        const { journals } = response;
+      const { journals } = response;
 
-        setJournals(journals);
-      } catch (error) {
-        signOut();
-        setLoading(false);
-        addToast({
-          type: 'error',
-          title: 'Error',
-          description:
-            'An error occurred while getting the journals. Please sign up and sign in again',
-        });
-      }
+      setJournals(journals);
+    } catch (error) {
+      signOut();
       setLoading(false);
-    };
-    load();
-  }, []);
+      addToast({
+        type: 'error',
+        title: 'Error',
+        description:
+          'An error occurred while getting the journals. Please sign up and sign in again',
+      });
+    }
+    setLoading(false);
+  }, [addToast, setLoading, signOut, user]);
+
+  useEffect(() => {
+    getJournals();
+  }, [getJournals]);
 
   return (
     <>
