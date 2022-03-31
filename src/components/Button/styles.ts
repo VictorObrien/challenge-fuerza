@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 
 interface ContainerProps {
-  isOutlined: boolean;
+  isOutlined?: boolean;
 }
 
 export const Container = styled.button<ContainerProps>`

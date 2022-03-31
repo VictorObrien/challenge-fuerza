@@ -99,9 +99,7 @@ const SingnUp: React.FC = () => {
               placeholder="Set your password"
             />
             <Input name="email" icon={FiUser} placeholder="Email (optional)" />
-            <Button isOutlined={false} type="submit">
-              Create account
-            </Button>
+            <Button type="submit">Create account</Button>
           </Form>
         </AnimationContainer>
       </Content>

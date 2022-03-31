@@ -100,9 +100,7 @@ const CreateJournal: React.FC = () => {
               setJournalTitle(e.target.value);
             }}
           />
-          <Button isOutlined={false} type="submit">
-            Save journal
-          </Button>
+          <Button type="submit">Save journal</Button>
         </Form>
       </Container>
     </>
