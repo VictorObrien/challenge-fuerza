@@ -94,6 +94,7 @@ const CreateNote: React.FC = () => {
           {
             userId: user.id,
             title: data.title,
+            content: data.content,
           }
         );
 

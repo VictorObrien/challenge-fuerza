@@ -10,6 +10,7 @@ import Journals from '../pages/Journals';
 import CreateJournal from '../pages/CreateJournal';
 import Notes from '../pages/Notes';
 import CreateNote from '../pages/CreateNote';
+import NoteContent from '../pages/NoteContent';
 
 const Routes: React.FC = () => {
   return (
@@ -28,6 +29,12 @@ const Routes: React.FC = () => {
         path="/journals/:journalId/create-note"
         exact
         component={CreateNote}
+        isPrivate
+      />
+      <Route
+        path="/journals/:journalId/:noteId"
+        exact
+        component={NoteContent}
         isPrivate
       />
     </Switch>
