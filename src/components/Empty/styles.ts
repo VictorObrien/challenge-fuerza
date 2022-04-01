@@ -10,6 +10,12 @@ export const Container = styled.div`
 
   gap: 6rem;
 
+  div {
+    font-family: 'Abhaya Libre', serif;
+    font-size: 25px;
+    font-weight: 700;
+  }
+
   img {
     width: 100%;
     max-width: 400px;

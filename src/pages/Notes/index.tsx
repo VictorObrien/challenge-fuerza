@@ -11,9 +11,17 @@ import { Entry } from '../../interfaces/entry.interface';
 import http from '../../services/api';
 
 import { Container, List } from './styles';
+import { Journal } from '../../interfaces/journal.interface';
+import Nav from '../../components/Nav';
+import Button from '../../components/Button';
+import { FiPlus } from 'react-icons/fi';
 
 interface GetNotesProps {
   entries: Entry[];
+}
+
+interface GetJournalProps {
+  journals: Journal[];
 }
 
 interface ParamsProps {
@@ -21,11 +29,34 @@ interface ParamsProps {
 }
 
 const Notes: React.FC = () => {
-  const { setLoading, signOut } = useAuth();
+  const { user, setLoading, signOut } = useAuth();
   const { addToast } = useToast();
 
   const { journalId } = useParams<ParamsProps>();
   const [notes, setNotes] = useState<Entry[]>();
+
+  const [journal, setJournal] = useState<Journal>();
+
+  const getJournals = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response: GetJournalProps = await http.get(`/journals/${user.id}`);
+
+      const { journals } = response;
+
+      setJournal(journals.find((journal) => journal.id === journalId));
+    } catch (error) {
+      signOut();
+      setLoading(false);
+      addToast({
+        type: 'error',
+        title: 'Error',
+        description:
+          'An error occurred while getting the journals. Please sign up and sign in again',
+      });
+    }
+    setLoading(false);
+  }, [addToast, setLoading, signOut, user, journalId]);
 
   const getNotes = useCallback(async () => {
     try {
@@ -54,26 +85,47 @@ const Notes: React.FC = () => {
     getNotes();
   }, [getNotes]);
 
+  useEffect(() => {
+    getJournals();
+  }, [getJournals]);
+
   return (
     <>
       <Header />
       <Container>
-        {notes?.length ? (
-          <List>
-            {notes?.map((note) => (
-              <Link to={`/journals/${journalId}/${note.id}`} key={note.id}>
-                <li>
-                  <div />
-                  <div>{note.title}</div>
-                </li>
-              </Link>
-            ))}
-          </List>
-        ) : (
-          <Empty>
-            <Link to={`/journals/${journalId}/create-note`}>Create a note</Link>
-          </Empty>
-        )}
+        {journal &&
+          (notes?.length ? (
+            <>
+              <Nav title={journal.title} linkBack={'/journals'}>
+                <Link to={`/journals/${journalId}/create-note`}>
+                  <Button
+                    isOutlined
+                    style={{ display: 'flex', alignItems: 'center' }}
+                  >
+                    <FiPlus />
+                    <span>Add note</span>
+                  </Button>
+                </Link>
+              </Nav>
+              <List>
+                {notes?.map((note) => (
+                  <Link to={`/journals/${journalId}/${note.id}`} key={note.id}>
+                    <li>
+                      <div>{note.title}</div>
+                    </li>
+                  </Link>
+                ))}
+              </List>
+            </>
+          ) : (
+            <>
+              <Empty journalTitle={journal.title}>
+                <Link to={`/journals/${journalId}/create-note`}>
+                  Create a note
+                </Link>
+              </Empty>
+            </>
+          ))}
       </Container>
     </>
   );

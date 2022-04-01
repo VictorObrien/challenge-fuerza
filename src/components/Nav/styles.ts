@@ -4,6 +4,7 @@ export const Container = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 
   margin-top: 12px;
 
@@ -28,6 +29,8 @@ export const Container = styled.nav`
       overflow: hidden;
 
       text-overflow: ellipsis;
+
+      color: #000;
     }
 
     svg {
