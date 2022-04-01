@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-use-before-define
 import React, { useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiUser, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -37,28 +37,38 @@ const SingnUp: React.FC = () => {
 
   const { addToast } = useToast();
 
+  const history = useHistory();
+
   const handleSubmit = useCallback(
     async (data: SignUpFormData) => {
+      setLoading(true);
       try {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
           username: Yup.string().required('Username is required'),
           password: Yup.string().min(6, 'At least 6 digits'),
-          email: Yup.string()
-            .required('Email is required')
-            .email('Enter a valid email address'),
+          email: Yup.string().email('Enter a valid email address'),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await createAccount({
+        const response = await createAccount({
           username: data.username,
           password: data.password,
           email: data.email,
         });
+
+        if (response) {
+          history.push('/');
+          setLoading(false);
+          addToast({
+            type: 'success',
+            title: 'Account created',
+          });
+        }
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           setLoading(false);
@@ -74,7 +84,7 @@ const SingnUp: React.FC = () => {
         }
       }
     },
-    [addToast, setLoading]
+    [addToast, setLoading, history]
   );
 
   return (

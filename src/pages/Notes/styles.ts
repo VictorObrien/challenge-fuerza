@@ -22,7 +22,7 @@ export const List = styled.ul`
 
   padding: 1rem 0;
 
-  max-height: 434px;
+  max-height: 550px;
 
   list-style-type: none;
 

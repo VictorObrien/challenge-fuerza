@@ -52,7 +52,7 @@ const Journals: React.FC = () => {
     <>
       <Header>
         {journals?.length && (
-          <Link to="create-journal">
+          <Link to="/journals/create-journal">
             <Button isOutlined>
               <FiPlus /> Add Journal
             </Button>

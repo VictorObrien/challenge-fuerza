@@ -8,6 +8,8 @@ import SignIn from '../pages/SignIn';
 import SingnUp from '../pages/SignUp';
 import Journals from '../pages/Journals';
 import CreateJournal from '../pages/CreateJournal';
+import Notes from '../pages/Notes';
+import CreateNote from '../pages/CreateNote';
 
 const Routes: React.FC = () => {
   return (
@@ -15,7 +17,19 @@ const Routes: React.FC = () => {
       <Route path="/" exact component={SignIn} />
       <Route path="/signup" exact component={SingnUp} />
       <Route path="/journals" exact component={Journals} isPrivate />
-      <Route path="/create-journal" exact component={CreateJournal} isPrivate />
+      <Route
+        path="/journals/create-journal"
+        exact
+        component={CreateJournal}
+        isPrivate
+      />
+      <Route path="/journals/:journalId" exact component={Notes} isPrivate />
+      <Route
+        path="/journals/:journalId/create-note"
+        exact
+        component={CreateNote}
+        isPrivate
+      />
     </Switch>
   );
 };

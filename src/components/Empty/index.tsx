@@ -8,15 +8,12 @@ interface EmptyProps {
   isJournal?: boolean;
 }
 
-const Empty: React.FC<EmptyProps> = ({ isJournal }) => {
+const Empty: React.FC<EmptyProps> = ({ isJournal, children }) => {
   return (
     <Container>
       <img src={empty} alt="logo" />
-      {isJournal ? (
-        <Link to="/create-journal">Create a journal</Link>
-      ) : (
-        <Link to="/create-note">Create a note</Link>
-      )}
+      {isJournal && <Link to="/journals/create-journal">Create a journal</Link>}
+      {children}
     </Container>
   );
 };
