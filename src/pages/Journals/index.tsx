@@ -9,14 +9,10 @@ import Button from '../../components/Button';
 import { useAuth } from '../../hooks/Auth';
 import { useToast } from '../../hooks/Toast';
 
-import { Journal } from '../../interfaces/journal.interface';
+import { GetJournalProps, Journal } from '../../interfaces/journal.interface';
 import http from '../../services/api';
 
 import { Container, List } from './styles';
-
-interface GetJournalProps {
-  journals: Journal[];
-}
 
 const Journals: React.FC = () => {
   const { user, setLoading, signOut } = useAuth();

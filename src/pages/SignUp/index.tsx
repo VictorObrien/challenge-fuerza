@@ -23,12 +23,7 @@ import {
   AnimationContainer,
   TextContainer,
 } from './styles';
-
-interface SignUpFormData {
-  username: string;
-  password: string;
-  email: string;
-}
+import { SignUpFormData } from '../../interfaces/signUp.interfaces';
 
 const SingnUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);

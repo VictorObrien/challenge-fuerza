@@ -7,26 +7,18 @@ import Empty from '../../components/Empty';
 import { useAuth } from '../../hooks/Auth';
 import { useToast } from '../../hooks/Toast';
 
-import { Entry } from '../../interfaces/entry.interface';
+import {
+  Entry,
+  GetNotesProps,
+  ParamsProps,
+} from '../../interfaces/entry.interface';
 import http from '../../services/api';
 
 import { Container, List } from './styles';
-import { Journal } from '../../interfaces/journal.interface';
+import { GetJournalProps, Journal } from '../../interfaces/journal.interface';
 import Nav from '../../components/Nav';
 import Button from '../../components/Button';
 import { FiPlus } from 'react-icons/fi';
-
-interface GetNotesProps {
-  entries: Entry[];
-}
-
-interface GetJournalProps {
-  journals: Journal[];
-}
-
-interface ParamsProps {
-  journalId: string;
-}
 
 const Notes: React.FC = () => {
   const { user, setLoading, signOut } = useAuth();

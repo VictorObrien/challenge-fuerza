@@ -14,17 +14,10 @@ import http from '../../services/api';
 
 import { Container } from './styles';
 import { useHistory } from 'react-router-dom';
-import { Journal } from '../../interfaces/journal.interface';
-import { User } from '../../interfaces/user.interface';
-
-interface CreateJournalFormData {
-  title: string;
-}
-
-interface CreateJournalResponse {
-  journal: Journal;
-  user: User;
-}
+import {
+  CreateJournalFormData,
+  CreateJournalResponse,
+} from '../../interfaces/journal.interface';
 
 const CreateJournal: React.FC = () => {
   const formRef = useRef<FormHandles>(null);

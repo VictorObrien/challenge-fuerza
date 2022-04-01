@@ -14,28 +14,14 @@ import http from '../../services/api';
 
 import { Container } from './styles';
 import { useHistory, useParams } from 'react-router-dom';
-import { Journal } from '../../interfaces/journal.interface';
-import { User } from '../../interfaces/user.interface';
+import { GetJournalProps, Journal } from '../../interfaces/journal.interface';
 import Nav from '../../components/Nav';
 import TextArea from '../../components/TextArea';
-
-interface CreateNoteFormData {
-  title: string;
-  content: string;
-}
-
-interface CreateNoteResponse {
-  journal: Journal;
-  user: User;
-}
-
-interface ParamsProps {
-  journalId: string;
-}
-
-interface GetJournalProps {
-  journals: Journal[];
-}
+import {
+  CreateNoteFormData,
+  CreateNoteResponse,
+  ParamsProps,
+} from '../../interfaces/entry.interface';
 
 const CreateNote: React.FC = () => {
   const formRef = useRef<FormHandles>(null);

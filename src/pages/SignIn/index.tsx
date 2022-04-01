@@ -4,6 +4,7 @@ import { FiUser, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/Auth';
 import { useToast } from '../../hooks/Toast';
@@ -20,12 +21,8 @@ import {
   TextContainer,
 } from './styles';
 import getValidationErrors from '../../utils/getValidationErrors';
-import { Link } from 'react-router-dom';
 
-interface SignInFormData {
-  username: string;
-  password: string;
-}
+import { SignInFormData } from '../../interfaces/signIn.interface';
 
 const SingnIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);

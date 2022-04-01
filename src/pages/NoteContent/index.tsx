@@ -9,22 +9,17 @@ import http from '../../services/api';
 import { Container } from './styles';
 import { useParams } from 'react-router-dom';
 import Nav from '../../components/Nav';
-import { Entry } from '../../interfaces/entry.interface';
-
-interface ParamsProps {
-  journalId: string;
-  noteId: string;
-}
-
-interface GetNotesProps {
-  entries: Entry[];
-}
+import {
+  Entry,
+  GetNotesProps,
+  ParamsNoteContentProps,
+} from '../../interfaces/entry.interface';
 
 const NoteContent: React.FC = () => {
   const { setLoading, signOut } = useAuth();
   const { addToast } = useToast();
 
-  const { journalId, noteId } = useParams<ParamsProps>();
+  const { journalId, noteId } = useParams<ParamsNoteContentProps>();
 
   const [note, setNote] = useState<Entry>();
 
