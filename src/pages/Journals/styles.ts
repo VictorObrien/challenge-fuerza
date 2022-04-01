@@ -30,6 +30,7 @@ export const List = styled.ul`
 
   a {
     width: 144px;
+    max-height: 170px;
 
     &:nth-child(odd) li {
       background: #b8e5e3;
